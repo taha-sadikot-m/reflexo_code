@@ -1,0 +1,15 @@
+# NeMo Guardrails config (MVP Stage 2 — 3 rails).
+# Runtime enforcement is in agent/guardrails.py so tests pass without NeMo on Python 3.14.
+models:
+  - type: main
+    engine: google
+    model: gemini-2.5-flash
+
+rails:
+  input:
+    flows:
+      - check prompt injection
+  output:
+    flows:
+      - check pii leak
+      - check price hallucination

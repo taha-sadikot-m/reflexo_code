@@ -1,0 +1,5 @@
+# Conservative limits for MVP
+system.forceSearchAttributesCacheRefreshOnRead:
+  - value: true
+limit.maxIDLength:
+  - value: 255

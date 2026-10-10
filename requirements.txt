@@ -1,0 +1,51 @@
+asyncpg>=0.29.0
+redis>=5.0.0
+python-dotenv>=1.0.0
+cryptography>=42.0.0
+google-genai>=1.0.0
+fastmcp>=2.0.0
+httpx>=0.27.0
+starlette>=0.40.0
+pydantic-settings>=2.0.0
+pdfplumber>=0.11.0
+python-docx>=1.1.0
+pandas>=2.2.0
+openpyxl>=3.1.0
+fpdf2>=2.7.0
+pytest>=8.0.0
+pytest-asyncio>=0.24.0
+langgraph>=0.4.0,<1.0.0
+langgraph-checkpoint-postgres>=2.0.0,<3.0.0
+langchain-core>=0.3.0
+langchain-google-genai>=2.0.0,<3.0.0
+langchain-mcp-adapters>=0.1.0,<0.2.0
+psycopg[binary,pool]>=3.1.0
+langfuse>=2.0.0,<3.0.0
+# Day 4 spec; import may fail on Python 3.14 — enforcement is agent/guardrails.py
+nemoguardrails>=0.11.0
+sentence-transformers>=3.0.0
+fastapi>=0.115.0
+uvicorn[standard]>=0.32.0
+bcrypt>=4.2.0
+PyJWT>=2.10.0
+email-validator>=2.2.0
+python-multipart>=0.0.18
+celery[redis]>=5.4.0
+mem0ai>=2.0.19,<3.0.0
+qdrant-client>=1.19.0,<2.0.0
+deepeval>=1.0.0
+# Stage 10 — WhatsApp Calling audio bridge + LiveKit Cloud agent
+aiortc>=1.9.0
+av>=12.0.0
+numpy>=1.26.0
+livekit>=0.21.0
+livekit-api>=0.8.0
+livekit-agents>=1.0.0
+livekit-plugins-deepgram>=1.0.0
+livekit-plugins-silero>=1.0.0
+livekit-plugins-google>=1.0.0
+# Docling for voice cross-channel file extract. langchain-docling is not pinned:
+# current releases require langchain-core 1.x, which conflicts with langgraph.
+docling>=2.0.0
+# Stage 12 — durable AI workflow interpreter
+temporalio>=1.7.0

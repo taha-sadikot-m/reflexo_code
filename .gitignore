@@ -1,0 +1,59 @@
+# Secrets
+.env
+.env.*
+!.env.example
+!.env*.example
+admin-panel/.env.local
+admin-panel/.env*.local
+headers.txt
+admin-panel/.edge-qa/
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.deepeval/
+.coverage
+htmlcov/
+
+# Node / Next.js
+node_modules/
+admin-panel/.next/
+admin-panel/out/
+*.tsbuildinfo
+
+# Runtime state
+logs/
+*.log
+celerybeat-schedule*
+dump.rdb
+
+# Internal docs, specs, reports, design prototypes
+Spcs_new/
+specs/
+docs/
+design/
+landing/
+DesignSystem.jsx
+EVAL_BASELINE.md
+admin-panel/AGENTS.md
+admin-panel/CLAUDE.md
+AGENTS.md
+CLAUDE.md
+.cursor/
+
+# Legacy
+nango-integrations/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

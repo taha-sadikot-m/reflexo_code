@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>REFLEXO widget demo</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;600&display=swap">
+  <style>
+    body { margin: 0; font-family: Inter, sans-serif; }
+    .hosts { display: grid; grid-template-columns: 1fr 1fr; min-height: 100vh; }
+    .light { background: #F6F3EB; color: #131A2C; padding: 48px; }
+    .dark { background: #0E1424; color: #F1EFE7; padding: 48px; }
+    h1 { font-family: Fraunces, serif; font-size: 1.8rem; }
+    p { max-width: 36ch; line-height: 1.5; opacity: 0.8; }
+    code { font-size: 12px; }
+  </style>
+</head>
+<body>
+  <div class="hosts">
+    <section class="light">
+      <h1>Light host</h1>
+      <p>Handloom default. Launcher on the left.</p>
+    </section>
+    <section class="dark">
+      <h1>Dark host</h1>
+      <p>Same embed with <code>data-theme="dark"</code> so the panel uses <code>.wg-dark</code>.</p>
+    </section>
+  </div>
+  <script
+    src="./widget.js"
+    data-business-id="00000000-0000-0000-0000-000000000001"
+    data-api-base="http://localhost:8030"
+    data-title="FOREEQUALS"
+    data-position="left"
+  ></script>
+  <script
+    src="./widget.js"
+    data-business-id="00000000-0000-0000-0000-000000000001"
+    data-api-base="http://localhost:8030"
+    data-title="FOREEQUALS"
+    data-theme="dark"
+    data-position="right"
+  ></script>
+</body>
+</html>

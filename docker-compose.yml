@@ -1,0 +1,81 @@
+# REFLEXO local infrastructure.
+
+services:
+  temporal-db:
+    image: postgres:16-alpine
+    container_name: temporal-db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=temporal
+      - POSTGRES_PASSWORD=${TEMPORAL_DB_PASSWORD:-temporal_dev_password}
+      - POSTGRES_DB=temporal
+    volumes:
+      - temporal-db-data:/var/lib/postgresql/data
+    networks:
+      - reflexo-internal
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U temporal -d temporal"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  temporal-server:
+    image: temporalio/auto-setup:1.27.2
+    container_name: temporal-server
+    restart: unless-stopped
+    environment:
+      - DB=postgres12
+      - DB_PORT=5432
+      - POSTGRES_USER=temporal
+      - POSTGRES_PWD=${TEMPORAL_DB_PASSWORD:-temporal_dev_password}
+      - POSTGRES_SEEDS=temporal-db
+      - DYNAMIC_CONFIG_FILE_PATH=/etc/temporal/config/dynamic_config.yaml
+    ports:
+      - "7233:7233"
+    depends_on:
+      temporal-db:
+        condition: service_healthy
+    volumes:
+      - ./temporal-config/dynamic_config.yaml:/etc/temporal/config/dynamic_config.yaml:ro
+    networks:
+      - reflexo-internal
+
+  temporal-ui:
+    image: temporalio/ui:2.34.0
+    container_name: temporal-ui
+    restart: unless-stopped
+    environment:
+      - TEMPORAL_ADDRESS=temporal-server:7233
+      - TEMPORAL_CORS_ORIGINS=http://localhost:3000
+    ports:
+      - "8088:8080"
+    depends_on:
+      - temporal-server
+    networks:
+      - reflexo-internal
+
+  qdrant:
+    image: qdrant/qdrant:v1.19.0
+    container_name: reflexo-qdrant
+    restart: unless-stopped
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant-data:/qdrant/storage
+    networks:
+      - reflexo-internal
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c ':> /dev/tcp/127.0.0.1/6333'"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+volumes:
+  temporal-db-data:
+  qdrant-data:
+
+networks:
+  reflexo-internal:
+    driver: bridge

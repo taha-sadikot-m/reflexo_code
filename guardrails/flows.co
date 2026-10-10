@@ -1,0 +1,31 @@
+# Colang flows — MVP Stage 2 (Day 4).
+# execute actions are implemented in agent/guardrails.py.
+
+# Input: Block prompt injection attempts
+define flow check prompt injection
+  user said something
+  $is_injection = execute check_injection(user_message=$last_user_message)
+  if $is_injection
+    bot say "I can only help with questions about this business."
+    stop
+
+# Output: Redact owner PII from customer responses
+define flow check pii leak
+  bot said something
+  $has_pii = execute check_pii_in_response(response=$last_bot_message, session_type=$session_type)
+  if $has_pii
+    $cleaned = execute redact_pii(response=$last_bot_message)
+    bot say $cleaned
+
+# Output: Verify prices match entity catalog
+define flow check price hallucination
+  bot said something
+  $has_price = execute extract_prices(response=$last_bot_message)
+  if $has_price
+    $verified = execute verify_prices_against_catalog(
+      response=$last_bot_message,
+      business_id=$business_id
+    )
+    if not $verified
+      bot say "Let me check the exact pricing for you."
+      # Re-trigger search_entities for accurate price

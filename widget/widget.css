@@ -1,0 +1,332 @@
+/* Handloom widget — tokens + widget primitives from Concept A */
+:root {
+  /* Typography ------------------------------------------------------------ */
+  --font-display: "Fraunces", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --font-ui: "Inter", "Noto Sans Devanagari", -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+
+  --text-3xs: 0.625rem;   /* 10px  eyebrow / table head */
+  --text-2xs: 0.6875rem;  /* 11px  meta */
+  --text-xs:  0.75rem;    /* 12px  helper */
+  --text-sm:  0.8125rem;  /* 13px  dense UI */
+  --text-md:  0.875rem;   /* 14px  body */
+  --text-lg:  1rem;       /* 16px  lead */
+  --text-xl:  1.25rem;    /* 20px  card title */
+  --text-2xl: 1.625rem;   /* 26px  page title */
+  --text-3xl: 2.25rem;    /* 36px  metric */
+  --text-4xl: 3.25rem;    /* 52px  hero */
+
+  --leading-tight: 1.12;
+  --leading-snug: 1.32;
+  --leading-normal: 1.55;
+  --tracking-eyebrow: 0.14em;
+  --tracking-tight: -0.018em;
+  --tracking-display: -0.032em;
+
+  /* Space — 4px base ------------------------------------------------------ */
+  --s1: 4px;  --s2: 8px;  --s3: 12px; --s4: 16px; --s5: 20px;
+  --s6: 24px; --s7: 32px; --s8: 40px; --s9: 56px; --s10: 80px;
+
+  /* Radius — editorial crispness, deliberately small --------------------- */
+  --r-xs: 3px; --r-sm: 5px; --r-md: 8px; --r-lg: 12px; --r-xl: 18px; --r-full: 999px;
+
+  /* Elevation — paper lifting off paper, never glossy -------------------- */
+  --e0: none;
+  --e1: 0 1px 1px rgba(28, 24, 14, 0.035), 0 2px 6px -2px rgba(28, 24, 14, 0.05);
+  --e2: 0 1px 2px rgba(28, 24, 14, 0.045), 0 8px 20px -8px rgba(28, 24, 14, 0.10);
+  --e3: 0 2px 4px rgba(28, 24, 14, 0.05), 0 20px 44px -14px rgba(28, 24, 14, 0.18);
+  --e4: 0 4px 8px rgba(28, 24, 14, 0.06), 0 36px 80px -20px rgba(28, 24, 14, 0.26);
+
+  /* Motion --------------------------------------------------------------- */
+  --dur-1: 90ms; --dur-2: 160ms; --dur-3: 260ms; --dur-4: 420ms;
+  --ease-out: cubic-bezier(0.22, 0.68, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.5, 0.05, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.42, 0.58, 1);
+
+  /* Structure ------------------------------------------------------------ */
+  --sidebar-w: 248px;
+  --sidebar-w-collapsed: 68px;
+  --topbar-h: 64px;
+  --hair: 1px;
+  --selvedge: 3px;         /* signature: the woven edge stripe */
+  --icon-stroke: 1.4;      /* concept A draws icons hairline */
+  --row-h: 46px;
+
+  /* Brand-coloured text is held apart from the brand fill, because a mid-tone
+     that reads well as text rarely reads well behind a label. On this
+     light-first concept the two happen to coincide. */
+  --brand-text: var(--brand);
+}
+
+/* Palette variant 1 — Indigo & Marigold (default) */
+:root, [data-palette="indigo"] {
+  --paper:      #F6F3EB;
+  --paper-sunk: #EEE9DD;
+  --surface:    #FFFDF8;
+  --surface-2:  #FAF7F0;
+  --ink:        #131A2C;
+  --ink-2:      #565E73;
+  --ink-3:      #838998;
+  --ink-on-brand: #FFFDF8;
+  --line:       #E0D9C9;
+  --line-2:     #CDC3AD;
+  --control:    #9F8B61;
+  --brand:      #23336B;
+  --brand-hi:   #2E4489;
+  --brand-lo:   #172449;
+  --brand-soft: #E6E9F4;
+  --accent:     #C87D0A;
+  --accent-hi:  #E09414;
+  --accent-soft:#FAEFD8;
+  --pos:        #2C7350;
+  --pos-soft:   #E2F0E7;
+  --warn:       #945F07;
+  --warn-soft:  #FAEDD5;
+  --neg:        #A2312B;
+  --neg-soft:   #F7E4E2;
+  --info:       #29578A;
+  --info-soft:  #E4EBF4;
+  --focus:      #C2790A;
+  --texture-ink: 19, 26, 44;
+}
+
+/* Palette variant 2 — Peacock & Brass */
+[data-palette="peacock"] {
+  --paper:      #F4F4EE;
+  --paper-sunk: #E9EAE1;
+  --surface:    #FFFEF9;
+  --surface-2:  #F8F9F2;
+  --ink:        #0F1F1D;
+  --ink-2:      #4C605D;
+  --ink-3:      #7D8C8A;
+  --ink-on-brand: #FDFEF8;
+  --line:       #DBDCD0;
+  --line-2:     #C3C6B6;
+  --control:    #8B9173;
+  --brand:      #11504C;
+  --brand-hi:   #196A64;
+  --brand-lo:   #0B3936;
+  --brand-soft: #E1EDEB;
+  --accent:     #9A7231;
+  --accent-hi:  #B98B43;
+  --accent-soft:#F5EDDE;
+  --pos:        #2A6E4E;
+  --pos-soft:   #E1EEE7;
+  --warn:       #90610E;
+  --warn-soft:  #F6EDD9;
+  --neg:        #97332F;
+  --neg-soft:   #F5E4E2;
+  --info:       #245C74;
+  --info-soft:  #E1EBEF;
+  --focus:      #9A7231;
+  --texture-ink: 15, 31, 29;
+}
+
+/* Palette variant 3 — Oxblood & Gold leaf */
+[data-palette="oxblood"] {
+  --paper:      #F7F2EE;
+  --paper-sunk: #EFE7E1;
+  --surface:    #FFFCFA;
+  --surface-2:  #FBF6F2;
+  --ink:        #23151A;
+  --ink-2:      #5E5057;
+  --ink-3:      #8E8188;
+  --ink-on-brand: #FFF9F5;
+  --line:       #E4D8D1;
+  --line-2:     #D0BFB6;
+  --control:    #A68674;
+  --brand:      #6D2027;
+  --brand-hi:   #8A2E36;
+  --brand-lo:   #4E1319;
+  --brand-soft: #F2E3E2;
+  --accent:     #96762F;
+  --accent-hi:  #B08F3F;
+  --accent-soft:#F6EEDC;
+  --pos:        #326E4F;
+  --pos-soft:   #E4EFE8;
+  --warn:       #926108;
+  --warn-soft:  #F8EED6;
+  --neg:        #A32E28;
+  --neg-soft:   #F8E3E1;
+  --info:       #3A5480;
+  --info-soft:  #E8EBF3;
+  --focus:      #96762F;
+  --texture-ink: 35, 21, 26;
+}
+
+[data-density="compact"] { --row-h: 36px; }
+
+.wg-launcher {
+  position: absolute; right: 22px; bottom: 22px; z-index: 5;
+  height: 54px; padding: 0 20px 0 16px;
+  display: inline-flex; align-items: center; gap: 10px;
+  border-radius: var(--r-full);
+  background: var(--brand);
+  color: var(--ink-on-brand);
+  font-size: var(--text-sm); font-weight: 600;
+  box-shadow: 0 10px 30px -6px color-mix(in srgb, var(--brand) 55%, transparent), var(--e2);
+  border: 1px solid var(--brand-lo);
+  transition: transform var(--dur-2) var(--ease-spring), box-shadow var(--dur-2);
+}
+.wg-launcher:hover { transform: translateY(-2px); }
+.wg-launcher-round { padding: 0; width: 54px; justify-content: center; }
+.wg-launcher .wg-badge {
+  position: absolute; top: -3px; right: -3px;
+  min-width: 21px; height: 21px; padding: 0 5px;
+  border-radius: var(--r-full);
+  background: var(--neg); color: #fff;
+  font-size: var(--text-2xs); font-weight: 700;
+  display: grid; place-items: center;
+  border: 2px solid var(--surface);
+}
+.wg-launcher[data-attention]::after {
+  content: ""; position: absolute; inset: -4px; border-radius: var(--r-full);
+  border: 2px solid var(--brand); opacity: 0.35;
+  animation: pulse-ring 2100ms var(--ease-out) infinite;
+}
+.wg-teaser {
+  position: absolute; right: 22px; bottom: 88px; z-index: 5;
+  width: 258px; padding: var(--s3) var(--s4);
+  background: var(--surface); border: var(--hair) solid var(--line-2);
+  border-radius: var(--r-md) var(--r-md) var(--r-xs) var(--r-md);
+  box-shadow: var(--e3);
+  font-size: var(--text-sm);
+}
+.wg-teaser .wt-close { position: absolute; top: 5px; right: 5px; color: var(--ink-3); }
+
+/* Panel */
+.wg-panel {
+  position: absolute; right: 22px; bottom: 22px; z-index: 6;
+  width: 372px; height: 552px; max-height: calc(100% - 44px);
+  display: flex; flex-direction: column;
+  background: var(--surface);
+  border: var(--hair) solid var(--line-2);
+  border-radius: var(--r-xl);
+  box-shadow: 0 30px 70px -18px rgba(var(--texture-ink), 0.4), var(--e2);
+  overflow: hidden;
+  animation: wg-in var(--dur-3) var(--ease-spring);
+}
+@keyframes wg-in { from { opacity: 0; transform: translateY(14px) scale(0.97); } }
+.wg-panel[data-static] { position: relative; right: auto; bottom: auto; animation: none; }
+.wg-head {
+  position: relative;
+  padding: var(--s4);
+  background: var(--brand-lo);
+  color: var(--paper);
+  display: flex; align-items: center; gap: var(--s3);
+  overflow: hidden;
+}
+.wg-head::before {
+  content: ""; position: absolute; inset: 0;
+  background-image:
+    repeating-linear-gradient(90deg, rgba(255,253,248,0.07) 0 1px, transparent 1px 8px),
+    repeating-linear-gradient(0deg,  rgba(255,253,248,0.05) 0 1px, transparent 1px 8px);
+}
+.wg-head > * { position: relative; }
+.wg-head .avatar { background: var(--accent); color: var(--brand-lo); border-color: transparent; }
+.wg-head b { font-size: var(--text-md); display: block; color: #fff; }
+.wg-head span { font-size: var(--text-2xs); color: rgba(255,253,248,0.66); display: flex; align-items: center; gap: 5px; }
+.wg-head .wg-head-btns { margin-left: auto; display: flex; gap: 2px; }
+.wg-head .wg-head-btns button { color: rgba(255,253,248,0.66); padding: 5px; border-radius: var(--r-xs); }
+.wg-head .wg-head-btns button:hover { color: #fff; background: rgba(255,253,248,0.13); }
+
+.wg-body { flex: 1; overflow-y: auto; padding: var(--s4); background: var(--paper); display: flex; flex-direction: column; gap: var(--s3); }
+.wg-body .bubble { font-size: var(--text-sm); }
+.wg-day { text-align: center; font-size: var(--text-2xs); color: var(--ink-3); font-family: var(--font-mono); padding: var(--s2) 0; }
+.wg-greeting { padding: var(--s2) 0 var(--s3); }
+.wg-greeting h4 { font-size: var(--text-xl); margin-bottom: 5px; }
+.wg-greeting p { font-size: var(--text-sm); color: var(--ink-2); }
+.wg-starters { display: grid; gap: 7px; margin-top: var(--s4); }
+.wg-starter {
+  display: flex; align-items: center; gap: var(--s2);
+  padding: 10px var(--s3);
+  background: var(--surface); border: var(--hair) solid var(--line-2);
+  border-radius: var(--r-sm);
+  font-size: var(--text-sm); font-weight: 500; text-align: left;
+  box-shadow: var(--e1);
+}
+.wg-starter:hover { border-color: var(--brand); background: var(--brand-soft); color: var(--brand); }
+.wg-starter .ic { margin-left: auto; color: var(--ink-3); }
+
+.wg-prodcard { border: var(--hair) solid var(--line); border-radius: var(--r-sm); overflow: hidden; background: var(--surface); box-shadow: var(--e1); width: 172px; flex: none; }
+.wg-prodcard .wp-img { height: 82px; background: var(--paper-sunk); display: grid; place-items: center; color: var(--line-2); }
+.wg-prodcard .wp-meta { padding: 9px; display: grid; gap: 3px; }
+.wg-prodcard b { font-size: var(--text-xs); }
+.wg-prodcard .wp-price { font-family: var(--font-display); font-size: var(--text-md); font-weight: 600; }
+.wg-carousel { display: flex; gap: 9px; overflow-x: auto; padding-bottom: 4px; }
+
+.wg-confirm { border: var(--hair) solid var(--accent); border-radius: var(--r-sm); background: var(--accent-soft); padding: var(--s3); }
+.wg-confirm .wc-title { font-size: var(--text-sm); font-weight: 650; display: flex; gap: 6px; align-items: center; }
+.wg-confirm .wc-diff { margin: var(--s2) 0; font-family: var(--font-mono); font-size: var(--text-2xs); }
+.wg-confirm .wc-diff div { padding: 2px 6px; border-radius: 2px; }
+.wg-confirm .wc-diff .del { background: var(--neg-soft); color: var(--neg); text-decoration: line-through; }
+.wg-confirm .wc-diff .add { background: var(--pos-soft); color: var(--pos); }
+
+.wg-foot { padding: 10px var(--s3) var(--s3); background: var(--surface); border-top: var(--hair) solid var(--line); }
+.wg-composer { display: flex; align-items: center; gap: 6px; }
+.wg-composer .input { min-height: 38px; border-radius: var(--r-full); padding-left: var(--s4); }
+.wg-composer .wg-send { width: 38px; height: 38px; border-radius: 50%; background: var(--brand); color: var(--ink-on-brand); display: grid; place-items: center; flex: none; box-shadow: var(--e1); }
+.wg-composer .wg-send:hover { background: var(--brand-hi); }
+.wg-composer .wg-icon-btn { color: var(--ink-3); padding: 6px; border-radius: 50%; }
+.wg-composer .wg-icon-btn:hover { color: var(--ink); background: var(--paper-sunk); }
+.wg-brandline { text-align: center; font-size: 9.5px; color: var(--ink-3); margin-top: 7px; letter-spacing: 0.03em; }
+.wg-brandline b { color: var(--ink-2); font-weight: 650; }
+
+.wg-offline-form { display: grid; gap: var(--s3); }
+
+/* Dark host sites get a dark widget from the same tokens: the indigo ink
+   becomes the ground and the khadi paper becomes the text. */
+.wg-panel.wg-dark {
+  --paper: #141A2A; --paper-sunk: #0E1424; --surface: #1B2336; --surface-2: #212A40;
+  --ink: #F1EFE7; --ink-2: #A8AEC1; --ink-3: #7B8296;
+  --line: rgba(246, 243, 235, 0.10); --line-2: rgba(246, 243, 235, 0.18); --control: rgba(246, 243, 235, 0.42);
+  --brand-soft: rgba(139, 160, 226, 0.18); --accent-soft: rgba(224, 148, 20, 0.16);
+  --pos-soft: rgba(63, 190, 135, 0.16); --neg-soft: rgba(228, 105, 95, 0.16);
+  --texture-ink: 6, 9, 16;
+  background: var(--surface); border-color: var(--line-2);
+}
+.wg-panel.wg-dark .wg-body { background: var(--paper); }
+.wg-panel.wg-dark .wg-foot, .wg-panel.wg-dark .wg-starter, .wg-panel.wg-dark .bubble { background: var(--surface); }
+.wg-panel.wg-dark .input { background: var(--paper-sunk); box-shadow: none; }
+.wg-panel.wg-dark .wg-prodcard { background: var(--surface-2); }
+.wg-panel.wg-dark .wg-prodcard .wp-img { background: var(--paper-sunk); color: var(--ink-3); }
+.wg-panel.wg-dark .wg-confirm { background: var(--accent-soft); border-color: var(--accent); }
+.wg-panel.wg-dark .quick-reply { background: transparent; color: var(--accent-hi); border-color: var(--accent-hi); }
+
+.ic {
+  width: 18px; height: 18px; flex: none; fill: none;
+  stroke: currentColor; stroke-width: var(--icon-stroke);
+  stroke-linecap: round; stroke-linejoin: round;
+}
+.bubble-row { display: flex; gap: 8px; max-width: 90%; }
+.bubble-row.out { align-self: flex-end; flex-direction: row-reverse; }
+.bubble {
+  padding: 9px 12px; font-size: var(--text-sm); line-height: 1.32;
+  border: var(--hair) solid var(--line); background: var(--surface);
+  border-radius: var(--r-md) var(--r-md) var(--r-md) var(--r-xs);
+}
+.bubble-row.out .bubble {
+  background: var(--brand-soft);
+  border-radius: var(--r-md) var(--r-md) var(--r-xs) var(--r-md);
+}
+.typing-ind { display: inline-flex; gap: 4px; align-items: center; padding: 11px 12px; }
+.typing-ind i { width: 6px; height: 6px; border-radius: 50%; background: var(--ink-3); animation: wg-bounce 1150ms ease-in-out infinite; display: block; }
+.typing-ind i:nth-child(2) { animation-delay: 140ms; }
+.typing-ind i:nth-child(3) { animation-delay: 280ms; }
+@keyframes wg-bounce { 0%, 60%, 100% { transform: translateY(0); opacity: 0.45; } 30% { transform: translateY(-4px); opacity: 1; } }
+.input {
+  width: 100%; min-height: 38px; border: var(--hair) solid var(--control);
+  border-radius: var(--r-full); padding: 8px 16px; background: var(--surface);
+  color: var(--ink); font: inherit;
+}
+.quick-reply {
+  padding: 6px 12px; border-radius: 999px; border: var(--hair) solid var(--brand);
+  color: var(--brand); background: var(--surface); font-size: var(--text-xs); font-weight: 600; cursor: pointer;
+}
+.reflexo-widget { font-family: var(--font-ui); color: var(--ink); }
+.reflexo-widget button { font: inherit; cursor: pointer; background: none; border: none; color: inherit; }
+.wg-live { position: fixed; right: 20px; bottom: 20px; z-index: 120; }
+.wg-live .wg-launcher { position: relative; right: auto; bottom: auto; }
+.wg-live .wg-panel { position: fixed; right: 20px; bottom: 90px; }
+.wg-live .wg-panel[hidden] { display: none !important; }
+
